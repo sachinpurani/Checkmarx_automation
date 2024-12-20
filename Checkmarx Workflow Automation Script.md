@@ -5,7 +5,10 @@ This script automates the workflow for Checkmarx scanning, report generation, an
 1. **Python 3.x** installed on your system.
 2. **Checkmarx CLI** (`cx`) installed and accessible via the CLI
 3. Generate a valid **Checkmarx API key**.
-4. **Git** installed to clone repositories.
+4. **Git** installed to clone repositories. 
+     I am using the following vulnerable GitHub repository for demonstration:
+      (https://github.com/snoopysecurity/Vulnerable-Code-Snippets)
+  
 5. SMTP server credentials for sending emails
 
 ## Features
@@ -31,11 +34,16 @@ Update the following variables in the script as per your requirements:
 1. Clone the repository where the script resides and navigate to the directory.
     
 2. Run the script using:
+    ```
+    python script_name.py
+    ```
+
 3. Follow the on-screen prompts:
     - Enter your **Checkmarx API Key**.
     - Provide the **Project Name** and **Branch Name**.
     - Provide the **GitHub repository URL** for the source code to scan.
-4. - The script will:
+    
+4.  The script will:
     
     - Check if the project exists in Checkmarx and create it if necessary.
     - Clone the GitHub repository if not already cloned.
@@ -43,11 +51,30 @@ Update the following variables in the script as per your requirements:
     - Generate **JSON** and **SARIF** scan reports.
     - Send an email with the scan reports attached.
 
+## Expected Output:
+  ```
+Welcome to the Checkmarx Workflow Script!
+Enter your Checkmarx API Key: 
+- Configuring API key...
+API key configured successfully.
+Enter the project name: sachin_test1
+Enter the branch name (e.g., 'main' or 'master'): main
+Checking if project 'sachin_test1' already exists...
+Listing all projects...
+Project 'sachin_test1' already exists.
+Enter the GitHub repository URL to clone (this will be used for every scan): https://github.com/sachinpurani/Vulnerable_source_code.git
+
+```
+
+![API](API.png)
+
+![github](github.png)
+
 
 ## Error Handling
 
 - If a command fails, the script will print an error message and terminate.
-- Ensure correct permissions and valid inputs to avoid runtime errors.
+- Ensure correct project name and valid API keys inputs to avoid runtime errors.
 
 ## Notes
 

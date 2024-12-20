@@ -10,11 +10,11 @@ CLI_PATH = "/usr/local/bin/cx"
 WORKING_DIR = "/home/sachinpurani/Documents/Checkmarx"
 
 # Email Configuration
-SENDER_EMAIL = "your_email@example.com"
-SENDER_PASSWORD = "your_email_password"
-SMTP_SERVER = "smtp.gmail.com"  # Replace with your email provider's SMTP server
-SMTP_PORT = 587  # Usually 587 for TLS
-RECIPIENT_EMAIL = "recipient_email@example.com"  # The recipient's email
+SENDER_EMAIL = "youremail@example.com"
+SENDER_PASSWORD = "yourmail_password"
+SMTP_SERVER = "smtp.gmail.com"  # Replace with your email
+SMTP_PORT = 587  
+RECIPIENT_EMAIL = "recipientemail@example.com"  # recipient email
 
 def run_command(command, cwd=None):
     """
@@ -27,7 +27,7 @@ def run_command(command, cwd=None):
 
 def set_api_key(api_key):
     """
-    Sets the API key for Checkmarx CLI.
+    Sets the API key for Checkmarx CLI
     """
     print("Configuring API key...")
     command = f"{CLI_PATH} configure set api-key {api_key}"
@@ -36,7 +36,7 @@ def set_api_key(api_key):
 
 def list_projects():
     """
-    Lists all projects in Checkmarx.
+    Lists all projects in Checkmarx
     """
     print("Listing all projects...")
     command = f"{CLI_PATH} project list"
@@ -44,7 +44,7 @@ def list_projects():
 
 def project_exists(project_name):
     """
-    Checks if a project already exists.
+    Checks if a project already exists
     """
     print(f"Checking if project '{project_name}' already exists...")
     projects = list_projects()
@@ -70,7 +70,7 @@ def create_project(project_name):
 
 def initiate_scan(project_name, branch_name, source_path):
     """
-    Initiates a scan for the specified project.
+    Initiates a scan for the specified project
     """
     print(f"Initiating scan for project: {project_name}")
     command = (
@@ -83,7 +83,7 @@ def initiate_scan(project_name, branch_name, source_path):
 
 def list_scans():
     """
-    Lists all scans to verify scan initiation.
+    Lists all scans to verify scan initiation
     """
     print("Retrieving scan list...")
     command = f"{CLI_PATH} scan list"
@@ -111,7 +111,7 @@ def generate_scan_results(scan_id):
 
 def send_email_with_attachments(subject, body, attachments):
     """
-    Send an email with attachments using Gmail's SMTP server.
+    Send an email with attachments using mail SMTP server.
     """
     try:
         msg = MIMEMultipart()
@@ -144,18 +144,16 @@ def send_email_with_attachments(subject, body, attachments):
 
 
 
-
-
 def main():
     try:
         print("Welcome to the Checkmarx Workflow Script!")
         os.chdir(WORKING_DIR)
 
         # Prompt for API Key
-        api_key = input("Enter your Checkmarx API Key: ").strip()
+        api_key = input("Enter your Checkmarx API: ").strip()
         set_api_key(api_key)
 
-        # Prompt for Project Name and Branch
+        # Prompt for Project name and Branch
         project_name = input("Enter the project name: ").strip()
         branch_name = input("Enter the branch name (e.g., 'main' or 'master'): ").strip()
 
@@ -164,7 +162,7 @@ def main():
             # If the project doesn't exist, create it
             create_project(project_name)
 
-        # Always prompt for the GitHub repository URL and clone it (even if the directory already exists)
+        # Prompt for gitHub repository URL and clone it (even if the directory already exists)
         source_path = "./vulnerable-project"
         repo_url = input("Enter the GitHub repository URL to clone (this will be used for every scan): ").strip()
         if not os.path.exists(source_path):
@@ -183,7 +181,7 @@ def main():
         scan_id = None
         for line in scans.split("\n"):
             if project_name in line:
-                scan_id = line.split()[0]  # Extract Scan ID
+                scan_id = line.split()[0]  # Extract the scan ID ---
                 break
         if not scan_id:
             raise RuntimeError(f"No scan found for project '{project_name}'.")
